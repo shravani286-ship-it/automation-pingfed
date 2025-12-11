@@ -1,33 +1,38 @@
 import requests
-urlpost='https://localhost:9999/pf-admin-api/v1/keyPairs/signing/generate'
 
-authpost = ('Administrator', '2Federate')
-headerspost = {
-	'accept': 'application/json',
-    'x-xsrf-header': 'PingFederate',
-}
+def post_request():
+    url = 'https://localhost:9999/pf-admin-api/v1/keyPairs/signing/generate'
+    auth = ('Administrator', '2Federate')
+    headers = {
+        'accept': 'application/json',
+        'x-xsrf-header': 'PingFederate',
+    }
+    body = {
+        "id": "12345",
+        "commonName": "importtest_script",
+        "subjectAlternativeNames": [],
+        "organization": "trevonix",
+        "city": "hyderabad",
+        "state": "Telangana",
+        "country": "IN",
+        "validDays": 365,
+        "keyAlgorithm": "RSA",
+        "keySize": 2048,
+        "signatureAlgorithm": "SHA256withRSA",
+    }
+    verify_ssl = False
 
-bodypost = {
-  "id": "12345",
-  "commonName": "importtest_script",
-  "subjectAlternativeNames": [],
-  "organization": "trevonix",
-  "city": "hyderabad",
-  "state": "Telangana",
-  "country": "IN",
-  "validDays": 365,
-  "keyAlgorithm": "RSA",
-  "keySize": 2048,
-  "signatureAlgorithm": "SHA256withRSA",
-}
+    response = requests.post(
+        url=url,
+        headers=headers,
+        json=body,
+        verify=verify_ssl,
+        auth=auth
+    )
 
-verifypost=False
+    print(response.status_code)
+    return response.status_code
 
-response = requests.post(url=urlpost,headers=headerspost,json=bodypost,verify=verifypost,auth=authpost)
-def post_request():   
- status = response.status_code
- print(status)
- return status
 #print(status)
 #assert status==201
 #certdetails = response.json()
