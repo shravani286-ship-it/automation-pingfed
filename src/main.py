@@ -1,7 +1,7 @@
 import requests
 
 def post_request():
-    url = 'https://trevonix-device:9999/pf-admin-api/v1/keyPairs/signing/generate'
+    url = 'https://192.168.1.25:9999/pf-admin-api/v1/keyPairs/signing/generate'
     auth = ('Administrator', '2Federate')
     headers = {
         'accept': 'application/json',
